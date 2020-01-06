@@ -8,7 +8,6 @@ import ua.com.spring.core.test.service.TicketService;
 import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
