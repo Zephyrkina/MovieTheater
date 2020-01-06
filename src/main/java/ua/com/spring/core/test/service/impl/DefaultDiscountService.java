@@ -20,6 +20,7 @@ public class DefaultDiscountService implements DiscountService {
 
     @Override
     public byte getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
+
         return 0;
     }
 }
