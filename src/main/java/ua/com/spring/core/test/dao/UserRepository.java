@@ -1,20 +1,15 @@
 package ua.com.spring.core.test.dao;
 
+import org.springframework.stereotype.Repository;
 import ua.com.spring.core.test.domain.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository
 public class UserRepository implements AbstractRepository<User>{
 
-    public static Map<Long, User> users;
-
-    static {
-        users = new HashMap<>();
-        users.put(1L, new User());
-        users.put(2L, new User());
-        users.put(3L, new User());
-    }
+    private static Map<Long, User> users = new HashMap<>();
 
     public List<User> getAll() {
         return new ArrayList<>(users.values());

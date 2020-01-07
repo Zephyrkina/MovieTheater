@@ -1,19 +1,16 @@
 package ua.com.spring.core.test.dao;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 import ua.com.spring.core.test.domain.Event;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
+@Slf4j
+@Repository
 public class EventRepository implements AbstractRepository<Event> {
-    public static Map<Long, Event> events;
 
-    static {
-        events = new HashMap<>();
-        events.put(1L, new Event());
-        events.put(2L, new Event());
-        events.put(3L, new Event());
-    }
+    private static Map<Long, Event> events = new HashMap<>();
 
     @Override
     public List<Event> getAll() {
@@ -27,6 +24,9 @@ public class EventRepository implements AbstractRepository<Event> {
 
     @Override
     public Event save(Event object) {
+        //TODO remake ids
+        log.info("Save event: {}", object);
+        object.setId(new Random().nextLong());
         return events.put(object.getId(), object);
     }
 

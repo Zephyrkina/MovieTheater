@@ -1,6 +1,5 @@
 package ua.com.spring.core.test.service.impl;
 
-import org.springframework.stereotype.Service;
 import ua.com.spring.core.test.domain.Auditorium;
 import ua.com.spring.core.test.service.AuditoriumService;
 

@@ -1,23 +1,18 @@
 package ua.com.spring.core.test.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ua.com.spring.core.test.dao.EventRepository;
 import ua.com.spring.core.test.domain.Event;
 import ua.com.spring.core.test.service.EventService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
-@Service
 public class DefaultEventService implements EventService {
 
     private EventRepository eventRepository;
 
-    @Autowired
+
     public DefaultEventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }

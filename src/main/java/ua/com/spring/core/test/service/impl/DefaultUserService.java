@@ -1,7 +1,5 @@
 package ua.com.spring.core.test.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import ua.com.spring.core.test.dao.UserRepository;
 import ua.com.spring.core.test.domain.User;
 import ua.com.spring.core.test.service.UserService;
@@ -11,12 +9,10 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
 
-@Service
 public class DefaultUserService implements UserService {
 
     private UserRepository userRepository;
 
-    @Autowired
     public DefaultUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

@@ -1,5 +1,8 @@
 package ua.com.spring.core.test.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ua.com.spring.core.test.domain.DomainObject;
 import ua.com.spring.core.test.domain.EventRating;
 
@@ -11,9 +14,9 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-/**
- * @author Yuriy_Tkach
- */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Event extends DomainObject {
 
     private String name;
@@ -25,6 +28,12 @@ public class Event extends DomainObject {
     private EventRating rating;
 
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
+
+    public Event(String name, double basePrice, EventRating rating) {
+        this.name = name;
+        this.basePrice = basePrice;
+        this.rating = rating;
+    }
 
     /**
      * Checks if event is aired on particular <code>dateTime</code> and assigns
@@ -140,72 +149,4 @@ public class Event extends DomainObject {
         return airDates.stream()
                 .anyMatch(dt -> dt.toLocalDate().compareTo(from) >= 0 && dt.toLocalDate().compareTo(to) <= 0);
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public NavigableSet<LocalDateTime> getAirDates() {
-        return airDates;
-    }
-
-    public void setAirDates(NavigableSet<LocalDateTime> airDates) {
-        this.airDates = airDates;
-    }
-
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public EventRating getRating() {
-        return rating;
-    }
-
-    public void setRating(EventRating rating) {
-        this.rating = rating;
-    }
-
-    public NavigableMap<LocalDateTime, Auditorium> getAuditoriums() {
-        return auditoriums;
-    }
-
-    public void setAuditoriums(NavigableMap<LocalDateTime, Auditorium> auditoriums) {
-        this.auditoriums = auditoriums;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Event other = (Event) obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
-    }
-
 }

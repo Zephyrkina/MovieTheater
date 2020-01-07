@@ -1,5 +1,7 @@
 package ua.com.spring.core.test.dao;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 import ua.com.spring.core.test.domain.Event;
 import ua.com.spring.core.test.domain.Ticket;
 
@@ -7,17 +9,11 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
+@Repository
 public class TicketRepository implements AbstractRepository<Ticket> {
 
-    private static Map<Long, Ticket> tickets;
-
-    static {
-        tickets = new HashMap<>();
-        tickets.put(1L, new Ticket());
-        tickets.put(2L, new Ticket());
-        tickets.put(3L, new Ticket());
-
-    }
+    private static Map<Long, Ticket> tickets = new HashMap<>();
 
     @Override
     public List<Ticket> getAll() {
@@ -31,6 +27,9 @@ public class TicketRepository implements AbstractRepository<Ticket> {
 
     @Override
     public Ticket save(Ticket object) {
+        //TODO remake ids
+        log.info("Save ticket: {}", object);
+        object.setId(new Random().nextLong());
         return tickets.put(object.getId(), object);
     }
 

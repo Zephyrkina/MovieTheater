@@ -6,7 +6,20 @@ import ua.com.spring.core.test.service.DiscountStrategy;
 public class Every10thTicketStrategy implements DiscountStrategy {
 
     @Override
-    public byte execute(User user, long numberOfTickets) {
+    public Byte execute(User user, long numberOfTickets) {
+        if (user == null && numberOfTickets >=10) {
+            return 50;
+        }
+
+        if (user != null) {
+            long boughtTickets = user.getTickets().size();
+            long totalTickets = boughtTickets + numberOfTickets;
+            if (totalTickets % 10 == 0) {
+                return 50;
+            }
+
+        }
+
         return 0;
     }
 }
