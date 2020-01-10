@@ -11,28 +11,28 @@
 <!--    <context:annotation-config />-->
 
 
-    <context:component-scan base-package="ua.com.spring.core.test.dao" />
+    <context:component-scan base-package="ua.com.spring.core.training.dao" />
 
     <context:property-placeholder location="classpath:auditorium.properties" />
 
-    <bean id="userService" class="ua.com.spring.core.test.service.impl.DefaultUserService">
+    <bean id="userService" class="ua.com.spring.core.training.service.impl.DefaultUserService">
         <constructor-arg ref="userRepository"/>
     </bean>
-    <bean id="eventService" class="ua.com.spring.core.test.service.impl.DefaultEventService">
+    <bean id="eventService" class="ua.com.spring.core.training.service.impl.DefaultEventService">
         <constructor-arg ref="eventRepository"/>
     </bean>
-    <bean id="bookingService" class="ua.com.spring.core.test.service.impl.DefaultBookingService">
+    <bean id="bookingService" class="ua.com.spring.core.training.service.impl.DefaultBookingService">
         <constructor-arg ref="ticketService"/>
         <constructor-arg ref="userService"/>
         <constructor-arg ref="discountService"/>
 
     </bean>
 
-    <bean id="ticketService" class="ua.com.spring.core.test.service.impl.DefaultTicketService">
+    <bean id="ticketService" class="ua.com.spring.core.training.service.impl.DefaultTicketService">
         <constructor-arg ref="ticketRepository"/>
     </bean>
 
-    <bean id="auditoriumService" class="ua.com.spring.core.test.service.impl.DefaultAuditoriumService">
+    <bean id="auditoriumService" class="ua.com.spring.core.training.service.impl.DefaultAuditoriumService">
         <constructor-arg name="auditoriums">
             <list>
                 <ref bean="redAuditorium"/>
@@ -42,7 +42,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="discountService" class="ua.com.spring.core.test.service.impl.DefaultDiscountService">
+    <bean id="discountService" class="ua.com.spring.core.training.service.impl.DefaultDiscountService">
         <constructor-arg>
             <list>
                 <ref bean="birthdayStrategy"/>
@@ -52,21 +52,21 @@
     </bean>
 
 
-    <bean id="birthdayStrategy" class="ua.com.spring.core.test.service.impl.BirthdayStrategy"/>
+    <bean id="birthdayStrategy" class="ua.com.spring.core.training.service.impl.BirthdayStrategy"/>
 
-    <bean id="every10thTicket" class="ua.com.spring.core.test.service.impl.Every10thTicketStrategy"/>
+    <bean id="every10thTicket" class="ua.com.spring.core.training.service.impl.Every10thTicketStrategy"/>
 
-    <bean id="redAuditorium" class="ua.com.spring.core.test.domain.Auditorium">
+    <bean id="redAuditorium" class="ua.com.spring.core.training.domain.Auditorium">
         <constructor-arg name="name" value="${auditorium.red.name}"/>
         <constructor-arg name="numberOfSeats" value="${auditorium.red.seats}" />
         <constructor-arg name="vipSeats"  value="#{'${auditorium.red.vip}'.split(',')}"/>
     </bean>
-    <bean id="blueAuditorium" class="ua.com.spring.core.test.domain.Auditorium">
+    <bean id="blueAuditorium" class="ua.com.spring.core.training.domain.Auditorium">
         <constructor-arg name="name" value="${auditorium.blue.name}"/>
         <constructor-arg name="numberOfSeats" value="${auditorium.blue.seats}"/>
         <constructor-arg name="vipSeats" value="#{'${auditorium.blue.vip}'.split(',')}"/>
     </bean>
-    <bean id="greenAuditorium" class="ua.com.spring.core.test.domain.Auditorium">
+    <bean id="greenAuditorium" class="ua.com.spring.core.training.domain.Auditorium">
         <constructor-arg name="name" value="${auditorium.green.name}"/>
         <constructor-arg name="numberOfSeats"  value="${auditorium.green.seats}"/>
         <constructor-arg name="vipSeats" value="#{'${auditorium.green.vip}'.split(',')}"/>
