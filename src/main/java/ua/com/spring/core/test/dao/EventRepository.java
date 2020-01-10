@@ -5,10 +5,13 @@ import org.springframework.stereotype.Repository;
 import ua.com.spring.core.test.domain.Event;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Repository
 public class EventRepository implements AbstractRepository<Event> {
+
+    private static AtomicLong eventIdCount = new AtomicLong(0);
 
     private static Map<Long, Event> events = new HashMap<>();
 
@@ -24,9 +27,9 @@ public class EventRepository implements AbstractRepository<Event> {
 
     @Override
     public Event save(Event object) {
-        //TODO remake ids
-        log.info("Save event: {}", object);
-        object.setId(new Random().nextLong());
+        if (object.getId() == null) {
+            object.setId(eventIdCount.getAndIncrement());
+        }
         return events.put(object.getId(), object);
     }
 
@@ -35,11 +38,6 @@ public class EventRepository implements AbstractRepository<Event> {
         return events.remove(object);
     }
 
-    @Override
-    public Event update(Event object) {
-        events.remove(object);
-        return events.put(object.getId(), object);
-    }
 
     public Optional<Event> getByName(String name) {
         return events.values().stream().filter(event -> event.getName().equals(name)).findFirst();

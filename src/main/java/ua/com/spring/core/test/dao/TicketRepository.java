@@ -7,11 +7,14 @@ import ua.com.spring.core.test.domain.Ticket;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
 public class TicketRepository implements AbstractRepository<Ticket> {
+
+    private static AtomicLong ticketIdCount = new AtomicLong(0);
 
     private static Map<Long, Ticket> tickets = new HashMap<>();
 
@@ -27,9 +30,9 @@ public class TicketRepository implements AbstractRepository<Ticket> {
 
     @Override
     public Ticket save(Ticket object) {
-        //TODO remake ids
-        log.info("Save ticket: {}", object);
-        object.setId(new Random().nextLong());
+        if (object.getId() == null) {
+            object.setId(ticketIdCount.getAndIncrement());
+        }
         return tickets.put(object.getId(), object);
     }
 
@@ -38,11 +41,6 @@ public class TicketRepository implements AbstractRepository<Ticket> {
         return tickets.remove(object);
     }
 
-    @Override
-    public Ticket update(Ticket object) {
-        tickets.remove(object.getId());
-        return tickets.put(object.getId(), object);
-    }
 
     public List<Ticket> getByEventAndTime(Event event, LocalDateTime time) {
         return tickets.values().stream().filter(ticket -> ticket.getEvent().equals(event))

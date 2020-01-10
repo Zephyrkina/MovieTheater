@@ -4,10 +4,12 @@ import org.springframework.stereotype.Repository;
 import ua.com.spring.core.test.domain.User;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class UserRepository implements AbstractRepository<User>{
+
+    private static AtomicLong userIdCount = new AtomicLong(0);
 
     private static Map<Long, User> users = new HashMap<>();
 
@@ -26,6 +28,9 @@ public class UserRepository implements AbstractRepository<User>{
 
     @Override
     public User save(User object) {
+        if (object.getId() == null) {
+            object.setId(userIdCount.getAndIncrement());
+        }
         return users.put(object.getId(), object);
     }
 
@@ -34,9 +39,4 @@ public class UserRepository implements AbstractRepository<User>{
         return users.remove(object);
     }
 
-    @Override
-    public User update(User object) {
-        users.remove(object.getId());
-        return users.put(object.getId(), object);
-    }
 }
