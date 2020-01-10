@@ -1,24 +1,24 @@
 package ua.com.spring.core.test.exceptions;
 
-public class NoSuchEventException extends RuntimeException {
+public class EventNotFoundException extends RuntimeException {
 
-    public NoSuchEventException() {
+    public EventNotFoundException() {
         super();
     }
 
-    public NoSuchEventException(String message) {
+    public EventNotFoundException(String message) {
         super(message);
     }
 
-    public NoSuchEventException(String message, Throwable cause) {
+    public EventNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public NoSuchEventException(Throwable cause) {
+    public EventNotFoundException(Throwable cause) {
         super(cause);
     }
 
-    protected NoSuchEventException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected EventNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
