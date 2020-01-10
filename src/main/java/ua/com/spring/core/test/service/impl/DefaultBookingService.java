@@ -4,7 +4,7 @@ import ua.com.spring.core.test.domain.Event;
 import ua.com.spring.core.test.domain.EventRating;
 import ua.com.spring.core.test.domain.Ticket;
 import ua.com.spring.core.test.domain.User;
-import ua.com.spring.core.test.exceptions.NoSuchEventException;
+import ua.com.spring.core.test.exceptions.EventNotFoundException;
 import ua.com.spring.core.test.service.BookingService;
 import ua.com.spring.core.test.service.DiscountService;
 import ua.com.spring.core.test.service.TicketService;
@@ -34,7 +34,7 @@ public class DefaultBookingService implements BookingService {
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
         if (!event.getAirDates().contains(dateTime)) {
-            throw new NoSuchEventException("There is no such event for specified date found");
+            throw new EventNotFoundException("There is no such event for specified date found");
         }
 
         Set<Ticket> purchasedTicketsForEvent = getPurchasedTicketsForEvent(event, dateTime);
@@ -44,7 +44,7 @@ public class DefaultBookingService implements BookingService {
         for (Long seat : seats) {
             for(Long bookedSeat : bookedSeats ) {
                 if (seat.equals(bookedSeat)) {
-                    throw new NoSuchEventException("Seat #" + bookedSeat + "is already booked.");
+                    throw new EventNotFoundException("Seat #" + bookedSeat + "is already booked.");
                 }
             }
         }
@@ -91,14 +91,14 @@ public class DefaultBookingService implements BookingService {
             return ticket;
         }).collect(Collectors.toList());
 
-        tempTickets.stream().forEach(t -> ticketService.update((Ticket) t));
+        tempTickets.stream().forEach(t -> ticketService.save((Ticket) t));
 
         try {
             User tempUser = userService.getById(tempTickets.get(0).getId());
 
             tempUser.getTickets().addAll(tempTickets);
 
-            userService.update(tempUser);
+            userService.save(tempUser);
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
         }

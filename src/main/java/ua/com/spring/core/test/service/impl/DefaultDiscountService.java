@@ -26,7 +26,8 @@ public class DefaultDiscountService implements DiscountService {
         Optional<Byte> discount = discountStrategies.stream().map(e -> e.execute(user, numberOfTickets))
                 .max(Comparator.comparing(Byte::byteValue));
 
-            log.info("Discount for event {} for {} tickets is {}", event.getName(), numberOfTickets, discount.get());
+            log.info("Discount for event {} for {} tickets is: {}", event.getName(), numberOfTickets, discount.get());
+
             return discount.get();
     }
 }

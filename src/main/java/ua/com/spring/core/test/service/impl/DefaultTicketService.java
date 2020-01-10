@@ -40,11 +40,6 @@ public class DefaultTicketService implements TicketService {
         return ticketRepository.getAll();
     }
 
-    @Override
-    public Ticket update(Ticket object) {
-        return ticketRepository.update(object);
-    }
-
     public Set<Ticket> getByEventAndTime(Event event, LocalDateTime dateTime) {
         return ticketRepository.getByEventAndTime(event, dateTime)
                 .stream().filter(Ticket::isBooked).collect(Collectors.toSet());

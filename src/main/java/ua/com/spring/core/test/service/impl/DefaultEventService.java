@@ -1,17 +1,20 @@
 package ua.com.spring.core.test.service.impl;
 
 import ua.com.spring.core.test.dao.EventRepository;
+import ua.com.spring.core.test.domain.Auditorium;
 import ua.com.spring.core.test.domain.Event;
+import ua.com.spring.core.test.exceptions.EventNotFoundException;
 import ua.com.spring.core.test.service.EventService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 public class DefaultEventService implements EventService {
 
     private EventRepository eventRepository;
-
 
     public DefaultEventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
@@ -20,13 +23,12 @@ public class DefaultEventService implements EventService {
     @Nullable
     @Override
     public Event getByName(@Nonnull String name) {
-        return eventRepository.getByName(name).orElseThrow(() -> new RuntimeException("No event with such name found"));
+        return eventRepository.getByName(name).orElseThrow(() -> new EventNotFoundException("No event with such name found"));
     }
 
     @Override
     public Event save(@Nonnull Event object) {
         return eventRepository.save(object);
-
     }
 
     @Override
@@ -36,7 +38,7 @@ public class DefaultEventService implements EventService {
 
     @Override
     public Event getById(@Nonnull Long id) {
-        return eventRepository.getById(id).orElseThrow(() -> new RuntimeException("No event with such id found"));
+        return eventRepository.getById(id).orElseThrow(() -> new EventNotFoundException("No event with such id found"));
     }
 
     @Nonnull
@@ -45,9 +47,51 @@ public class DefaultEventService implements EventService {
         return eventRepository.getAll();
     }
 
-    @Override
-    public Event update(Event object) {
-        return eventRepository.update(object);
+    public boolean addAirDateTime(Event event, LocalDateTime dateTime, Auditorium auditorium) {
+        boolean result = event.getAirDates().add(dateTime);
+        if (result) {
+            event.getAuditoriums().put(dateTime, auditorium);
+        }
+        return result;
+    }
+
+    public boolean removeAirDateTime(Event event, LocalDateTime dateTime) {
+        boolean result = event.getAirDates().remove(dateTime);
+        if (result) {
+            event.getAuditoriums().remove(dateTime);
+        }
+        return result;
+    }
+
+    private boolean addAirDateTime(Event event, LocalDateTime dateTime) {
+        return event.getAirDates().add(dateTime);
+    }
+
+    private boolean assignAuditorium(Event event, LocalDateTime dateTime, Auditorium auditorium) {
+        if (event.getAirDates().contains(dateTime)) {
+            event.getAuditoriums().put(dateTime, auditorium);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean removeAuditoriumAssignment(Event event, LocalDateTime dateTime) {
+        return event.getAuditoriums().remove(dateTime) != null;
+    }
+
+
+    private boolean airsOnDateTime(Event event, LocalDateTime dateTime) {
+        return event.getAirDates().stream().anyMatch(dt -> dt.equals(dateTime));
+    }
+
+    private boolean airsOnDate(Event event, LocalDate date) {
+        return event.getAirDates().stream().anyMatch(dt -> dt.toLocalDate().equals(date));
+    }
+
+    private boolean airsOnDates(Event event, LocalDate from, LocalDate to) {
+        return event.getAirDates().stream()
+                .anyMatch(dt -> dt.toLocalDate().compareTo(from) >= 0 && dt.toLocalDate().compareTo(to) <= 0);
     }
 
  /*
@@ -59,8 +103,5 @@ public class DefaultEventService implements EventService {
     (OPTIONAL)
      public List<Event> getForDateRange(LocalDateTime from, LocalDateTime to){
         return eventRepository.getForDateRange(from, to);
-
-
-
     */
 }

@@ -2,6 +2,7 @@ package ua.com.spring.core.test.service.impl;
 
 import ua.com.spring.core.test.dao.UserRepository;
 import ua.com.spring.core.test.domain.User;
+import ua.com.spring.core.test.exceptions.UserNotFoundException;
 import ua.com.spring.core.test.service.UserService;
 
 import javax.annotation.Nonnull;
@@ -21,7 +22,7 @@ public class DefaultUserService implements UserService {
     @Override
     public User getUserByEmail(@Nonnull String email) {
         Optional<User> user = userRepository.getByEmail(email);
-        return user.orElseThrow(() -> new RuntimeException("No user with such email found"));
+        return user.orElseThrow(() -> new UserNotFoundException("No user with such email found"));
     }
 
     @Override
@@ -36,17 +37,12 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User getById(@Nonnull Long id) {
-        return userRepository.getById(id).orElseThrow(() -> new RuntimeException("No user with such id found"));
+        return userRepository.getById(id).orElseThrow(() -> new UserNotFoundException("No user with such id found"));
     }
 
     @Nonnull
     @Override
     public Collection<User> getAll() {
         return userRepository.getAll();
-    }
-
-    @Override
-    public User update(User object) {
-        return userRepository.update(object);
     }
 }

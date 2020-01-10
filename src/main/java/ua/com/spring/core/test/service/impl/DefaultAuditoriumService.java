@@ -1,10 +1,12 @@
 package ua.com.spring.core.test.service.impl;
 
 import ua.com.spring.core.test.domain.Auditorium;
+import ua.com.spring.core.test.exceptions.AuditoriumNotFound;
 import ua.com.spring.core.test.service.AuditoriumService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +28,10 @@ public class DefaultAuditoriumService implements AuditoriumService {
     @Override
     public Auditorium getByName(@Nonnull String name) {
         return auditoriums.stream().filter(auditorium -> auditorium.getName().equals(name))
-                .findFirst().orElseThrow(() -> new RuntimeException("No auditorium with such name found"));
+                .findFirst().orElseThrow(() -> new AuditoriumNotFound("No auditorium with such name found"));
+    }
+
+    private long countVipSeats(Collection<Long> seats, Auditorium auditorium) {
+        return seats.stream().filter(seat -> auditorium.getVipSeats().contains(seat)).count();
     }
 }

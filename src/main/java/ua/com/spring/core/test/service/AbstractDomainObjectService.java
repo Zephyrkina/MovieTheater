@@ -16,5 +16,8 @@ public interface AbstractDomainObjectService<T extends DomainObject> {
 
     @Nonnull Collection<T> getAll();
 
-    T update(T object);
+    default T update(T object) {
+        throw new UnsupportedOperationException();
+    }
+
 }
