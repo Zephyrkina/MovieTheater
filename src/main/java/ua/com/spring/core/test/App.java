@@ -40,7 +40,7 @@ public class App
         //save event
 
         Event event = new Event("mon", 10.0, EventRating.MID );
-        event.addAirDateTime(airDateTime, redAuditorium);
+        eventService.addAirDateTime(event, airDateTime , redAuditorium);
 
         Event savedEvent = eventService.save(event);
 
@@ -48,8 +48,6 @@ public class App
 
         List<Event> events = (List<Event>) eventService.getAll();
         //events.stream().forEach(System.out::println);
-
-
 
         //view purchased tickets
 
