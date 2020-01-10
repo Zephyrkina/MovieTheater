@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface TicketService extends AbstractDomainObjectService<Ticket> {
+
     Set<Ticket> getByEventAndTime(Event event, LocalDateTime dateTime);
 
 }

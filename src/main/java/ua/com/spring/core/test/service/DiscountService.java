@@ -1,16 +1,11 @@
 package ua.com.spring.core.test.service;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import ua.com.spring.core.test.domain.Event;
 import ua.com.spring.core.test.domain.User;
-/**
- * @author Yuriy_Tkach
- */
+
 public interface DiscountService {
 
     /**
