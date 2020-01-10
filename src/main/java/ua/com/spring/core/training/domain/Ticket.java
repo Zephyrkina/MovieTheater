@@ -18,16 +18,7 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     private LocalDateTime dateTime;
 
-    private long seat;
-
-    private boolean isBooked;
-
-    public Ticket(User user, Event event, LocalDateTime dateTime, long seat) {
-        this.user = user;
-        this.event = event;
-        this.dateTime = dateTime;
-        this.seat = seat;
-    }
+    private Long seat;
 
     @Override
     public boolean equals(Object o) {
@@ -35,9 +26,9 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
         if (!(o instanceof Ticket)) return false;
         if (!super.equals(o)) return false;
         Ticket ticket = (Ticket) o;
-        return seat == ticket.seat &&
-                Objects.equals(event, ticket.event) &&
-                Objects.equals(dateTime, ticket.dateTime);
+        return event.equals(ticket.event) &&
+                dateTime.equals(ticket.dateTime) &&
+                seat.equals(ticket.seat);
     }
 
     @Override

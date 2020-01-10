@@ -9,7 +9,6 @@ import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class DefaultTicketService implements TicketService {
 
@@ -41,7 +40,6 @@ public class DefaultTicketService implements TicketService {
     }
 
     public Set<Ticket> getByEventAndTime(Event event, LocalDateTime dateTime) {
-        return ticketRepository.getByEventAndTime(event, dateTime)
-                .stream().filter(Ticket::isBooked).collect(Collectors.toSet());
+        return ticketRepository.getByEventAndTime(event, dateTime);
     }
 }

@@ -31,7 +31,7 @@ public class DefaultAuditoriumService implements AuditoriumService {
                 .findFirst().orElseThrow(() -> new AuditoriumNotFound("No auditorium with such name found"));
     }
 
-    private long countVipSeats(Collection<Long> seats, Auditorium auditorium) {
+    public long countVipSeats(Collection<Long> seats, Auditorium auditorium) {
         return seats.stream().filter(seat -> auditorium.getVipSeats().contains(seat)).count();
     }
 }

@@ -16,10 +16,9 @@ import java.util.stream.LongStream;
 @Slf4j
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
 
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("app-config.xml");
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("application-context.xml");
         ctx.refresh();
 
         AuditoriumService auditoriumService = (AuditoriumService) ctx.getBean("auditoriumService");
@@ -28,13 +27,9 @@ public class App
         UserService userService = (UserService) ctx.getBean("userService");
         TicketService ticketService = (TicketService) ctx.getBean("ticketService");
 
-
-        //Set<Auditorium> auditoriums = auditoriumService.getAll();
         Auditorium redAuditorium = auditoriumService.getByName("Red");
         LocalDateTime airDateTime = LocalDateTime.now();
         Set<Long> seats = LongStream.range(1, 6).boxed().collect(Collectors.toSet());
-
-
 
         //for Admins
         //save event
@@ -47,7 +42,7 @@ public class App
         //get events
 
         List<Event> events = (List<Event>) eventService.getAll();
-        //events.stream().forEach(System.out::println);
+        log.info("Found events: {}", events.stream().map(Object::toString).collect(Collectors.joining(",")));
 
         //view purchased tickets
 
@@ -80,19 +75,15 @@ public class App
 
         // buy tickets
 
-        Ticket ticket1 = new Ticket(user, event, airDateTime, 15, false);
-        Ticket ticket2 = new Ticket(user, event, airDateTime, 14, false);
-        Ticket ticket3 = new Ticket(user, event, airDateTime, 13, false);
+        Ticket ticket1 = new Ticket(user, event, airDateTime, 15L);
+        Ticket ticket2 = new Ticket(user, event, airDateTime, 14L);
+        Ticket ticket3 = new Ticket(user, event, airDateTime, 13L);
 
         Set<Ticket> tickets = new HashSet<>();
 
         tickets.add(ticket1);
         tickets.add(ticket2);
         tickets.add(ticket3);
-
-        for (Ticket t : tickets) {
-            ticketService.save(t);
-        }
 
         bookingService.bookTickets(tickets);
 

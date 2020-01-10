@@ -1,5 +1,6 @@
 package ua.com.spring.core.training.service;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -12,5 +13,7 @@ public interface AuditoriumService{
     @Nonnull Set<Auditorium> getAll();
 
     @Nullable Auditorium getByName(@Nonnull String name);
+
+    long countVipSeats(Collection<Long> seats, Auditorium auditorium);
 
 }

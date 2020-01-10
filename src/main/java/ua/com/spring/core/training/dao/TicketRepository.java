@@ -41,9 +41,9 @@ public class TicketRepository implements AbstractRepository<Ticket> {
         return tickets.remove(object);
     }
 
-    public List<Ticket> getByEventAndTime(Event event, LocalDateTime time) {
+    public Set<Ticket> getByEventAndTime(Event event, LocalDateTime time) {
         return tickets.values().stream().filter(ticket -> ticket.getEvent().equals(event))
                 .filter(ticket -> ticket.getEvent().getAirDates().contains(time))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 }
