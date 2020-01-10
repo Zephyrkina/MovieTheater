@@ -1,14 +1,15 @@
 package ua.com.spring.core.test.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.NavigableSet;
+import java.util.Objects;
 import java.util.TreeSet;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends DomainObject {
@@ -19,6 +20,7 @@ public class User extends DomainObject {
 
     private String email;
 
+    @ToString.Exclude
     private NavigableSet<Ticket> tickets = new TreeSet<>();
 
     private LocalDate birthday;
@@ -28,5 +30,22 @@ public class User extends DomainObject {
         this.lastName = lastName;
         this.email = email;
         this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return firstName.equals(user.firstName) &&
+                lastName.equals(user.lastName) &&
+                email.equals(user.email) &&
+                birthday.equals(user.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), firstName, lastName, email, birthday);
     }
 }

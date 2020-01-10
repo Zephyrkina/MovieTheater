@@ -1,13 +1,13 @@
 package ua.com.spring.core.test.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ticket extends DomainObject implements Comparable<Ticket> {
@@ -27,6 +27,22 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
         this.event = event;
         this.dateTime = dateTime;
         this.seat = seat;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket)) return false;
+        if (!super.equals(o)) return false;
+        Ticket ticket = (Ticket) o;
+        return seat == ticket.seat &&
+                Objects.equals(event, ticket.event) &&
+                Objects.equals(dateTime, ticket.dateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), event, dateTime, seat);
     }
 
     @Override
