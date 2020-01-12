@@ -14,11 +14,11 @@ public class Every10thTicketStrategy implements DiscountStrategy {
             return EVERY_10TH_TICKET_DISCOUNT.getDiscountValue();
         }
 
-        if (user != null) {
+        if (user != null && user.getTickets() != null) {
             long boughtTickets = user.getTickets().size();
             long totalTickets = boughtTickets + numberOfTickets;
 
-            if ( totalTickets % 10 < numberOfTickets) {
+            if ( (boughtTickets % 10) + numberOfTickets >= 10) {
                 return EVERY_10TH_TICKET_DISCOUNT.getDiscountValue();
             }
         }

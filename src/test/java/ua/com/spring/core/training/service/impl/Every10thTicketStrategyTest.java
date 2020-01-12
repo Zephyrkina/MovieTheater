@@ -29,7 +29,43 @@ class Every10thTicketStrategyTest {
     private DiscountStrategy every10thTicketStrategy;
 
     @Test
-    void whenUserBuyNext10thTicket_thenReturn50Discount() {
+    void givenEmptyUser_andFiveTickets_whenExecuteStrategy_thenReturn0Discount() {
+        User user = null;
+
+        long numberOfTickets = 5L;
+        byte expectedZeroDiscount = 0;
+
+        byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
+
+        assertThat(actualDiscount, is(equalTo(expectedZeroDiscount)));
+    }
+
+    @Test
+    void givenEmptyUser_andTenTickets_whenExecuteStrategy_thenReturn50Discount() {
+        User user = null;
+
+        long numberOfTickets = 10L;
+        byte expectedEvery10thTicketDiscount = 50;
+
+        byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
+
+        assertThat(actualDiscount, is(equalTo(expectedEvery10thTicketDiscount)));
+    }
+
+    @Test
+    void givenEmptyUser_andElevenTickets_whenExecuteStrategy_thenReturn50Discount() {
+        User user = null;
+
+        long numberOfTickets = 11L;
+        byte expectedEvery10thTicketDiscount = 50;
+
+        byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
+
+        assertThat(actualDiscount, is(equalTo(expectedEvery10thTicketDiscount)));
+    }
+
+    @Test
+    void givenLoginUser_andNext10thTicket_whenExecuteStrategy_thenReturn50Discount() {
         User user = User.builder()
                 .firstName("John")
                 .lastName("Smith")
@@ -51,10 +87,20 @@ class Every10thTicketStrategyTest {
     }
 
     @Test
-    void givenEmptyUser_andFiveTickets_whenExecuteStrategy_thenReturn0Discount() {
-        User user = null;
+    void givenLoginUser_andNext20thTicket_whenExecuteStrategy_thenReturn50Discount() {
+        User user = User.builder()
+                .firstName("John")
+                .lastName("Smith")
+                .email("johnsm@gmail.com")
+                .birthday(LocalDate.now().minusYears(30).minusDays(3))
+                .build();
 
-        long numberOfTickets = 5L;
+        Event event = new Event("mon", 10.0, EventRating.MID);
+        LocalDateTime airDateTime = LocalDateTime.now();
+        NavigableSet<Ticket> tickets = createUserTickets(user, event, airDateTime, 13);
+        user.setTickets(tickets);
+
+        long numberOfTickets = 8L;
         byte expectedEvery10thTicketDiscount = 50;
 
         byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
@@ -63,42 +109,21 @@ class Every10thTicketStrategyTest {
     }
 
     @Test
-    void givenEmptyUser_andTenTickets_whenExecuteStrategy_thenReturn0Discount() {
-        User user = null;
-
-        long numberOfTickets = 11L;
-        byte expectedZeroDiscount = 0;
-
-        byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
-
-        assertThat(actualDiscount, is(equalTo(expectedZeroDiscount)));
-    }
-
-    @Test
-    void givenEmptyUser_andElevenTickets_whenExecuteStrategy_thenReturn50Discount() {
-        User user = null;
-
-        long numberOfTickets = 5L;
-        byte expectedZeroDiscount = 0;
-
-        byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
-
-        assertThat(actualDiscount, is(equalTo(expectedZeroDiscount)));
-    }
-
-
-    @Test
-    void whenUserDoesNotHaveBirthdayWithin5Days_thenReturn0Discount() {
+    void givenLoginUser_andNot10thTicket_whenExecuteStrategy_thenReturn50Discount() {
         User user = User.builder()
                 .firstName("John")
                 .lastName("Smith")
                 .email("johnsm@gmail.com")
-                .birthday(LocalDate.now().minusYears(30).minusDays(30))
+                .birthday(LocalDate.now().minusYears(30).minusDays(3))
                 .build();
 
-        byte expectedZeroDiscount = 0;
+        Event event = new Event("mon", 10.0, EventRating.MID);
+        LocalDateTime airDateTime = LocalDateTime.now();
+        NavigableSet<Ticket> tickets = createUserTickets(user, event, airDateTime, 3);
+        user.setTickets(tickets);
 
-        long numberOfTickets = 5L;
+        long numberOfTickets = 2L;
+        byte expectedZeroDiscount = 0;
 
         byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
 
@@ -106,10 +131,21 @@ class Every10thTicketStrategyTest {
     }
 
     @Test
-    void whenUserIsNull_thenReturn0Discount() {
-        User user = null;
+    void givenLoginUser_and85thUserTicket_and3boughtTickets_whenExecuteStrategy_thenReturn0Discount() {
+        User user = User.builder()
+                .firstName("John")
+                .lastName("Smith")
+                .email("johnsm@gmail.com")
+                .birthday(LocalDate.now().minusYears(30).minusDays(3))
+                .build();
+
+        Event event = new Event("mon", 10.0, EventRating.MID);
+        LocalDateTime airDateTime = LocalDateTime.now();
+        NavigableSet<Ticket> tickets = createUserTickets(user, event, airDateTime, 85);
+        user.setTickets(tickets);
+
+        long numberOfTickets = 3L;
         byte expectedZeroDiscount = 0;
-        long numberOfTickets = 5L;
 
         byte actualDiscount = every10thTicketStrategy.execute(user, numberOfTickets);
 
