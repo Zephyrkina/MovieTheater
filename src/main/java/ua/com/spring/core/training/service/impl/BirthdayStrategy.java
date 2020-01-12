@@ -11,10 +11,14 @@ import static ua.com.spring.core.training.domain.DiscountRating.BIRTHDAY_DISCOUN
 import static ua.com.spring.core.training.domain.DiscountRating.NO_DISCOUNT;
 
 public class BirthdayStrategy implements DiscountStrategy {
-    private final Integer FIVE_DAYS_DISCOUNT_INTERVAL = 5;
+    private static final Integer FIVE_DAYS_DISCOUNT_INTERVAL = 5;
 
     @Override
     public Byte execute(User user, long numberOfTickets) {
+        if (user == null) {
+            return NO_DISCOUNT.getDiscountValue();
+        }
+
         LocalDate today = LocalDate.now();
         LocalDate thisYearBirthdayDate = defineThisYearBirthdayDate(user);
 

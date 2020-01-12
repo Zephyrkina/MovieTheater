@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class DefaultAuditoriumService implements AuditoriumService {
 
     private Set<Auditorium> auditoriums;
@@ -32,6 +34,9 @@ public class DefaultAuditoriumService implements AuditoriumService {
     }
 
     public long countVipSeats(Collection<Long> seats, Auditorium auditorium) {
+        checkArgument(seats != null && !seats.isEmpty(), "Seats shouldn't be empty");
+        checkArgument(auditorium != null, "Auditorium shouldn't be null");
+
         return seats.stream().filter(seat -> auditorium.getVipSeats().contains(seat)).count();
     }
 }

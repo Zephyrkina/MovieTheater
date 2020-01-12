@@ -10,7 +10,7 @@ public class Every10thTicketStrategy implements DiscountStrategy {
 
     @Override
     public Byte execute(User user, long numberOfTickets) {
-        if (user == null && numberOfTickets >=10) {
+        if (numberOfTickets >=10) {
             return EVERY_10TH_TICKET_DISCOUNT.getDiscountValue();
         }
 
@@ -18,7 +18,7 @@ public class Every10thTicketStrategy implements DiscountStrategy {
             long boughtTickets = user.getTickets().size();
             long totalTickets = boughtTickets + numberOfTickets;
 
-            if (totalTickets % 10 == 0) {
+            if ( totalTickets % 10 < numberOfTickets) {
                 return EVERY_10TH_TICKET_DISCOUNT.getDiscountValue();
             }
         }

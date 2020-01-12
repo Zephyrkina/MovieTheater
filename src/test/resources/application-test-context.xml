@@ -10,9 +10,9 @@
 
     <context:component-scan base-package="ua.com.spring.core.training.dao" />
 
-    <context:property-placeholder location="classpath:auditorium.properties" />
+    <context:property-placeholder location="classpath:auditorium-test.properties" />
 
-    <bean id="userService" class="ua.com.spring.core.training.service.impl.DefaultUserService">
+ <!--   <bean id="userService" class="ua.com.spring.core.training.service.impl.DefaultUserService">
         <constructor-arg ref="userRepository"/>
     </bean>
     <bean id="eventService" class="ua.com.spring.core.training.service.impl.DefaultEventService">
@@ -27,7 +27,7 @@
 
     <bean id="ticketService" class="ua.com.spring.core.training.service.impl.DefaultTicketService">
         <constructor-arg ref="ticketRepository"/>
-    </bean>
+    </bean> -->
 
     <bean id="auditoriumService" class="ua.com.spring.core.training.service.impl.DefaultAuditoriumService">
         <constructor-arg name="auditoriums">
@@ -39,15 +39,15 @@
         </constructor-arg>
     </bean>
 
-    <bean id="discountService" class="ua.com.spring.core.training.service.impl.DefaultDiscountService">
+<!--    <bean id="discountService" class="ua.com.spring.core.training.service.impl.DefaultDiscountService">
         <constructor-arg>
             <list>
                 <ref bean="birthdayStrategy"/>
-                <ref bean="every10thTicketStrategy"/>
+                <ref bean="every10thTicket"/>
             </list>
         </constructor-arg>
     </bean>
-
+-->
 
     <bean id="birthdayStrategy" class="ua.com.spring.core.training.service.impl.BirthdayStrategy"/>
 

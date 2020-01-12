@@ -12,6 +12,7 @@ import java.util.TreeSet;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User extends DomainObject {
 
     private String firstName;
