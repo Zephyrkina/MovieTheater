@@ -38,7 +38,7 @@ public class TicketRepository implements AbstractRepository<Ticket> {
 
     @Override
     public Ticket remove(Ticket object) {
-        return tickets.remove(object);
+        return tickets.remove(object.getId());
     }
 
     public Set<Ticket> getByEventAndTime(Event event, LocalDateTime time) {

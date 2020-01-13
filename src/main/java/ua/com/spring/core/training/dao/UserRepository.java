@@ -36,7 +36,7 @@ public class UserRepository implements AbstractRepository<User>{
 
     @Override
     public User remove(User object) {
-        return users.remove(object);
+        return users.remove(object.getId());
     }
 
 }

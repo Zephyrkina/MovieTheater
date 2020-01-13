@@ -35,7 +35,7 @@ public class EventRepository implements AbstractRepository<Event> {
 
     @Override
     public Event remove(Event object) {
-        return events.remove(object);
+        return events.remove(object.getId());
     }
 
 
