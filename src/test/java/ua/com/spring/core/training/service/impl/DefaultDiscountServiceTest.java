@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.com.spring.core.training.domain.Event;
 import ua.com.spring.core.training.domain.EventRating;
 import ua.com.spring.core.training.domain.User;
@@ -71,7 +73,7 @@ class DefaultDiscountServiceTest {
     }
 
     @Test
-    void givenNoDiscount_whenGetDiscount_thenShouldReturn0Discout(){
+    void givenNoDiscount_whenGetDiscount_thenShouldReturn0Discount(){
         long numberOfTickets = 10l;
         byte expectedDiscount = 0;
 

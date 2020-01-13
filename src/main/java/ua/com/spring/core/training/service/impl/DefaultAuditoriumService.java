@@ -1,5 +1,7 @@
 package ua.com.spring.core.training.service.impl;
 
+import org.springframework.shell.core.CommandMarker;
+import org.springframework.shell.core.annotation.CliCommand;
 import ua.com.spring.core.training.domain.Auditorium;
 import ua.com.spring.core.training.exceptions.AuditoriumNotFound;
 import ua.com.spring.core.training.service.AuditoriumService;
@@ -12,7 +14,7 @@ import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public class DefaultAuditoriumService implements AuditoriumService {
+public class DefaultAuditoriumService implements AuditoriumService, CommandMarker {
 
     private Set<Auditorium> auditoriums;
 
@@ -22,6 +24,7 @@ public class DefaultAuditoriumService implements AuditoriumService {
 
     @Nonnull
     @Override
+    @CliCommand(value="getAuditoriums", help = "return all auditoriums")
     public Set<Auditorium> getAll() {
         return new HashSet<>(auditoriums);
     }
