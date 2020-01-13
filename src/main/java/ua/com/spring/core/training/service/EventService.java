@@ -11,9 +11,9 @@ public interface EventService extends AbstractDomainObjectService<Event> {
 
     @Nullable Event getByName(@Nonnull String name);
 
-    boolean addAirDateTime(Event event, LocalDateTime dateTime, Auditorium auditorium);
+    boolean addAirDateTimeToEvent(Event event, LocalDateTime dateTime, Auditorium auditorium);
 
-    boolean removeAirDateTime(Event event, LocalDateTime dateTime);
+    boolean removeAirDateTimeFromEvent(Event event, LocalDateTime dateTime);
 
 
 

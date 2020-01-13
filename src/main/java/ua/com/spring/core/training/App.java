@@ -35,7 +35,7 @@ public class App
         //save event
 
         Event event = new Event("mon", 10.0, EventRating.MID );
-        eventService.addAirDateTime(event, airDateTime , redAuditorium);
+        eventService.addAirDateTimeToEvent(event, airDateTime , redAuditorium);
 
         Event savedEvent = eventService.save(event);
 

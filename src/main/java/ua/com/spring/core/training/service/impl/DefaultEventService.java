@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class DefaultEventService implements EventService {
 
     private EventRepository eventRepository;
@@ -23,21 +25,25 @@ public class DefaultEventService implements EventService {
     @Nullable
     @Override
     public Event getByName(@Nonnull String name) {
+        checkArgument(name != null && !name.isEmpty(), "Event name shouldn't be null ir empty");
         return eventRepository.getByName(name).orElseThrow(() -> new EventNotFoundException("No event with such name found"));
     }
 
     @Override
     public Event save(@Nonnull Event object) {
+        checkArgument(object != null, "Event shouldn't be null");
         return eventRepository.save(object);
     }
 
     @Override
     public void remove(@Nonnull Event object) {
+        checkArgument(object != null, "Event shouldn't be null");
         eventRepository.remove(object);
     }
 
     @Override
     public Event getById(@Nonnull Long id) {
+        checkArgument(id != null, "Event id shouldn't be null");
         return eventRepository.getById(id).orElseThrow(() -> new EventNotFoundException("No event with such id found"));
     }
 
@@ -47,7 +53,7 @@ public class DefaultEventService implements EventService {
         return eventRepository.getAll();
     }
 
-    public boolean addAirDateTime(Event event, LocalDateTime dateTime, Auditorium auditorium) {
+    public boolean addAirDateTimeToEvent(Event event, LocalDateTime dateTime, Auditorium auditorium) {
         boolean result = event.getAirDates().add(dateTime);
         if (result) {
             event.getAuditoriums().put(dateTime, auditorium);
@@ -55,7 +61,7 @@ public class DefaultEventService implements EventService {
         return result;
     }
 
-    public boolean removeAirDateTime(Event event, LocalDateTime dateTime) {
+    public boolean removeAirDateTimeFromEvent(Event event, LocalDateTime dateTime) {
         boolean result = event.getAirDates().remove(dateTime);
         if (result) {
             event.getAuditoriums().remove(dateTime);
