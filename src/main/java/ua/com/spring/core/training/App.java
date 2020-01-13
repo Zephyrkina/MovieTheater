@@ -85,7 +85,7 @@ public class App
         tickets.add(ticket2);
         tickets.add(ticket3);
 
-        bookingService.bookTickets(tickets);
+        bookingService.bookTickets(tickets, user);
 
         log.info("Booked tickets: {}", bookingService.getPurchasedTicketsForEvent(event, airDateTime).stream()
                 .map(Object::toString).collect(Collectors.joining("\n")));

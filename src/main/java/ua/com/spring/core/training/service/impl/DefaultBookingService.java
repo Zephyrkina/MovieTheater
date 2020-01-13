@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class DefaultBookingService implements BookingService {
 
     private TicketService ticketService;
@@ -29,11 +31,14 @@ public class DefaultBookingService implements BookingService {
     @Nonnull
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
+        checkArgument(event != null, "Event shouldn't be null");
         return ticketService.getByEventAndTime(event, dateTime);
     }
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
+        checkArgument(event != null, "Event shouldn't be null");
+        checkArgument(seats != null && !seats.isEmpty(), "Seats shouldn't be null or empty");
         checkSeatsAreNotBooked(event, dateTime, seats);
 
         long vipSeatsCount = auditoriumService.countVipSeats(seats, event.getAuditoriums().get(dateTime));
@@ -48,13 +53,12 @@ public class DefaultBookingService implements BookingService {
     }
 
     @Override
-    public void bookTickets(@Nonnull Set<Ticket> tickets) {
+    public void bookTickets(@Nonnull Set<Ticket> tickets, @Nullable User user) {
+        checkArgument(tickets != null && !tickets.isEmpty(), "Tickets shouldn't be null or empty");
         checkTicketsInfoIsFulfilled(tickets);
         checkTicketsAreNotBooked(tickets);
 
         saveTickets(tickets);
-
-        User user = userService.getById(tickets.iterator().next().getUser().getId());
 
         if (user != null) {
             updateUserTickets(user, tickets);
@@ -103,6 +107,10 @@ public class DefaultBookingService implements BookingService {
     }
 
     private double getDiscount(@Nonnull Event event, @Nullable User user, @Nonnull Set<Long> seats) {
+        Byte discount = discountService.getDiscount(user, event, seats.size());
+        if (discount == 0) {
+            return discount.doubleValue();
+        }
         return (100 - discountService.getDiscount(user, event, seats.size()))/100.00;
     }
 
