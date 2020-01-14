@@ -10,6 +10,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     private User user;

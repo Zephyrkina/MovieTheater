@@ -1,6 +1,7 @@
 package ua.com.spring.core.training.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.util.TreeSet;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Event extends DomainObject {
 
     private String name;
