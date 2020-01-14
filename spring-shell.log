@@ -1,0 +1,5 @@
+// Spring Shell 1.2.0.RELEASE log opened at 2020-01-13 23:50:49
+// [failed] create-event
+// Spring Shell 1.2.0.RELEASE log opened at 2020-01-14 00:03:57
+create-event --name event1 --price 10.0
+get-events
