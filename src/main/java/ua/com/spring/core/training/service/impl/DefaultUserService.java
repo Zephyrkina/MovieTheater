@@ -1,6 +1,7 @@
 package ua.com.spring.core.training.service.impl;
 
 import ua.com.spring.core.training.dao.UserRepository;
+import ua.com.spring.core.training.dao.impl.UserRepositoryImpl;
 import ua.com.spring.core.training.domain.User;
 import ua.com.spring.core.training.exceptions.UserNotFoundException;
 import ua.com.spring.core.training.service.UserService;

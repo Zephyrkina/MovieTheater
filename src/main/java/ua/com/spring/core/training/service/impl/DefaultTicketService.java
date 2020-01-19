@@ -1,6 +1,7 @@
 package ua.com.spring.core.training.service.impl;
 
 import ua.com.spring.core.training.dao.TicketRepository;
+import ua.com.spring.core.training.dao.impl.TicketRepositoryImpl;
 import ua.com.spring.core.training.domain.Event;
 import ua.com.spring.core.training.domain.Ticket;
 import ua.com.spring.core.training.exceptions.TicketNotFoundException;

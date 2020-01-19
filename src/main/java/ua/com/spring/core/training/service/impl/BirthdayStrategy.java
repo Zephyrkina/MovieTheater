@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-import static ua.com.spring.core.training.domain.DiscountRating.BIRTHDAY_DISCOUNT;
-import static ua.com.spring.core.training.domain.DiscountRating.NO_DISCOUNT;
+import static ua.com.spring.core.training.domain.Discount.BIRTHDAY_DISCOUNT;
+import static ua.com.spring.core.training.domain.Discount.NO_DISCOUNT;
 
 public class BirthdayStrategy implements DiscountStrategy {
     private static final Integer FIVE_DAYS_DISCOUNT_INTERVAL = 5;
@@ -16,7 +16,7 @@ public class BirthdayStrategy implements DiscountStrategy {
     @Override
     public Byte execute(User user, long numberOfTickets) {
         if (user == null) {
-            return NO_DISCOUNT.getDiscountValue();
+            return NO_DISCOUNT.getValue();
         }
 
         LocalDate today = LocalDate.now();
@@ -24,10 +24,10 @@ public class BirthdayStrategy implements DiscountStrategy {
 
         if (today.minusDays(FIVE_DAYS_DISCOUNT_INTERVAL).isBefore(thisYearBirthdayDate)
                 && today.plusDays(FIVE_DAYS_DISCOUNT_INTERVAL).isAfter(thisYearBirthdayDate) ) {
-            return BIRTHDAY_DISCOUNT.getDiscountValue();
+            return BIRTHDAY_DISCOUNT.getValue();
         }
 
-        return NO_DISCOUNT.getDiscountValue();
+        return NO_DISCOUNT.getValue();
     }
 
     private LocalDate defineThisYearBirthdayDate(User user) {

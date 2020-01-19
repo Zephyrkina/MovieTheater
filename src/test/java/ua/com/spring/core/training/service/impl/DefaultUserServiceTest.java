@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.com.spring.core.training.dao.UserRepository;
+import ua.com.spring.core.training.dao.impl.UserRepositoryImpl;
 import ua.com.spring.core.training.domain.User;
 import ua.com.spring.core.training.exceptions.UserNotFoundException;
 

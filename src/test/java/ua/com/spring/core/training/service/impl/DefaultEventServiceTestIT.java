@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ua.com.spring.core.training.dao.EventRepository;
+import ua.com.spring.core.training.dao.impl.EventRepositoryImpl;
 import ua.com.spring.core.training.domain.Event;
 import ua.com.spring.core.training.domain.EventRating;
 import ua.com.spring.core.training.exceptions.EventNotFoundException;
@@ -25,7 +26,7 @@ class DefaultEventServiceTestIT {
 
     @BeforeEach
     void setUp() {
-        eventRepository = new EventRepository();
+        eventRepository = new EventRepositoryImpl();
         eventService = new DefaultEventService(eventRepository);
     }
 

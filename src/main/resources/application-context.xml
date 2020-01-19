@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
 
-    <context:component-scan base-package="ua.com.spring.core.training.dao" />
+    <context:component-scan base-package="ua.com.spring.core.training.config" />
+
+    <aop:aspectj-autoproxy/>
 
     <context:property-placeholder location="classpath:auditorium.properties" />
+
+
 
     <bean id="userService" class="ua.com.spring.core.training.service.impl.DefaultUserService">
         <constructor-arg ref="userRepository"/>
@@ -69,4 +76,15 @@
         <constructor-arg name="vipSeats" value="#{'${auditorium.green.vip}'.split(',')}"/>
     </bean>
 
+    <bean id="eventCounterService" class="ua.com.spring.core.training.service.impl.EventCounterServiceImpl">
+        <constructor-arg ref="eventCounterRepository"/>
+    </bean>
+
+    <bean id="discountCounterService" class="ua.com.spring.core.training.service.impl.DiscountCounterServiceImpl">
+        <constructor-arg ref="discountCounterRepository"/>
+    </bean>
+
+    <bean id="userDiscountCounterService" class="ua.com.spring.core.training.service.impl.UserDiscountCounterServiceImpl">
+        <constructor-arg ref="userDiscountCounterRepository"/>
+    </bean>
 </beans>

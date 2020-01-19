@@ -1,6 +1,7 @@
 package ua.com.spring.core.training.service.impl;
 
 import ua.com.spring.core.training.dao.EventRepository;
+import ua.com.spring.core.training.dao.impl.EventRepositoryImpl;
 import ua.com.spring.core.training.domain.Auditorium;
 import ua.com.spring.core.training.domain.Event;
 import ua.com.spring.core.training.exceptions.EventNotFoundException;

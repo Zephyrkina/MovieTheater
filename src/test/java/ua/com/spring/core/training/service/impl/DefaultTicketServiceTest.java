@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.com.spring.core.training.dao.TicketRepository;
+import ua.com.spring.core.training.dao.impl.TicketRepositoryImpl;
 import ua.com.spring.core.training.domain.Event;
 import ua.com.spring.core.training.domain.EventRating;
 import ua.com.spring.core.training.domain.Ticket;
