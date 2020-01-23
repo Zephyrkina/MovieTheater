@@ -1,6 +1,5 @@
 package ua.com.spring.core.training.service.impl;
 
-import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

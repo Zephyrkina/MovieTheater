@@ -2,6 +2,7 @@ package ua.com.spring.core.training.service.impl;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -21,12 +22,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath:application-test-context.xml"})
+@ExtendWith(MockitoExtension.class)
 class Every10thTicketStrategyTest {
 
-    @Autowired
-    private DiscountStrategy every10thTicketStrategy;
+    private DiscountStrategy every10thTicketStrategy = new Every10thTicketStrategy();
 
     @Test
     void givenEmptyUser_andFiveTickets_whenExecuteStrategy_thenReturn0Discount() {

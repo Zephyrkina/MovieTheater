@@ -21,13 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 class DefaultDiscountServiceTest {
 
-    @Spy
-    private List<DiscountStrategy> discountStrategies = new ArrayList<>(2);
+    private List<DiscountStrategy> discountStrategies;
 
-    @InjectMocks
     private DefaultDiscountService discountService;
 
     private User user;
@@ -40,6 +37,7 @@ class DefaultDiscountServiceTest {
 
     @BeforeEach
     void setUp() {
+        discountStrategies = new ArrayList<>(2);
         user = User.builder()
                 .firstName("John")
                 .lastName("Smith")
@@ -54,6 +52,8 @@ class DefaultDiscountServiceTest {
 
         discountStrategies.add(birthday);
         discountStrategies.add(every10thTicket);
+
+        discountService = new DefaultDiscountService(discountStrategies);
     }
 
     @Test

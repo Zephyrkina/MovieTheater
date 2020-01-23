@@ -1,5 +1,6 @@
 package ua.com.spring.core.training.service.impl;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath:application-test-context.xml"})
 class BirthdayStrategyTest {
 
-    @Autowired
     private DiscountStrategy birthdayStrategy;
+
+    @BeforeEach
+    void setUp(){
+        birthdayStrategy = new BirthdayStrategy();
+    }
 
     @Test
     void whenUserHasBirthdayWithin5Days_thenReturn5Discount() {

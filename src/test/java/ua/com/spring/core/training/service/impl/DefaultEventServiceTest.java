@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@ContextConfiguration(locations = {"classpath:application-test-context.xml"})
 class DefaultEventServiceTest {
 
     @Mock
