@@ -1,10 +1,15 @@
 package ua.com.spring.core.training.config;
 
 import org.springframework.context.annotation.*;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import ua.com.spring.core.training.aspects.CounterAspect;
 import ua.com.spring.core.training.aspects.DiscountAspect;
 import ua.com.spring.core.training.aspects.LuckyWinnerAspect;
 import ua.com.spring.core.training.dao.impl.*;
+import ua.com.spring.core.training.dao.impl.jdbc.JDBCTemplateUserRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableAspectJAutoProxy
@@ -26,10 +31,10 @@ public class Config {
         return new LuckyWinnerAspect();
     }
 
-    @Bean
+   /* @Bean
     public UserRepositoryImpl userRepository() {
         return new UserRepositoryImpl();
-    }
+    }*/
 
     @Bean
     public TicketRepositoryImpl ticketRepository() {
@@ -54,6 +59,20 @@ public class Config {
     @Bean
     public DiscountCounterRepositoryImpl discountCounterRepository() {
         return new DiscountCounterRepositoryImpl();
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("classpath:jdbc/schema.sql")
+                .addScript("classpath:jdbc/test-data.sql").build();
+    }
+
+    //abstract factory for diff repos impl beans?
+    @Bean
+    public JDBCTemplateUserRepository userRepository() {
+        return new JDBCTemplateUserRepository(dataSource());
     }
 
 }

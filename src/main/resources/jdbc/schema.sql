@@ -1,0 +1,8 @@
+CREATE TABLE USERS
+(
+	ID bigint NOT NULL PRIMARY KEY,
+	FIRST_NAME varchar(255),
+	LAST_NAME varchar(255),
+	EMAIL varchar(255),
+	BIRTHDAY date
+);
