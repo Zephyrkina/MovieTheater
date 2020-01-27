@@ -1,6 +1,5 @@
 package ua.com.spring.core.training.dao.impl;
 
-import ua.com.spring.core.training.dao.AbstractRepository;
 import ua.com.spring.core.training.dao.UserRepository;
 import ua.com.spring.core.training.domain.User;
 
@@ -29,6 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User object) {
+        System.out.println("in mock repository .............................");
         if (object.getId() == null) {
             object.setId(userIdCount.getAndIncrement());
         }

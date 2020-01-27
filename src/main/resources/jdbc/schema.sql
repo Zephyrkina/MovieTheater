@@ -1,8 +1,8 @@
-CREATE TABLE USERS
+CREATE TABLE IF NOT EXISTS users
 (
-	ID bigint NOT NULL PRIMARY KEY,
-	FIRST_NAME varchar(255),
-	LAST_NAME varchar(255),
-	EMAIL varchar(255),
-	BIRTHDAY date
+	id bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	first_name varchar(255),
+	last_name varchar(255),
+	email varchar(255),
+	birthday date
 );
