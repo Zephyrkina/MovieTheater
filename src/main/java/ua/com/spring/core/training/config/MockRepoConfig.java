@@ -11,7 +11,7 @@ import ua.com.spring.core.training.dao.impl.*;
 import javax.annotation.PostConstruct;
 
 @Primary
-//@Profile("mock")
+@Profile("mock")
 @Configuration
 public class MockRepoConfig {
 
