@@ -1,29 +1,23 @@
 package ua.com.spring.core.training.config;
 
-import org.springframework.context.annotation.*;
-import ua.com.spring.core.training.aspects.CounterAspect;
-import ua.com.spring.core.training.aspects.DiscountAspect;
-import ua.com.spring.core.training.aspects.LuckyWinnerAspect;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
+import ua.com.spring.core.training.dao.EventRepository;
+import ua.com.spring.core.training.dao.UserRepository;
 import ua.com.spring.core.training.dao.impl.*;
 
+import javax.annotation.PostConstruct;
+
+@Primary
+@Profile("mock")
 @Configuration
-@EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "ua.com.spring.core.training.aspects", "ua.com.spring.core.training.dao" })
-public class Config {
+public class MockRepoConfig {
 
-    @Bean
-    public CounterAspect counterAspect() {
-        return new CounterAspect();
-    }
-
-    @Bean
-    public DiscountAspect discountAspect() {
-        return new DiscountAspect();
-    }
-
-    @Bean
-    public LuckyWinnerAspect luckyWinnerAspect() {
-        return new LuckyWinnerAspect();
+    @PostConstruct
+    public void blalbalba() {
+        System.out.println("in post construct: " + this.getClass().getSimpleName());
     }
 
     @Bean
@@ -37,7 +31,7 @@ public class Config {
     }
 
     @Bean
-    public EventRepositoryImpl eventRepository() {
+    public EventRepository eventRepository() {
         return new EventRepositoryImpl();
     }
 
@@ -55,5 +49,6 @@ public class Config {
     public DiscountCounterRepositoryImpl discountCounterRepository() {
         return new DiscountCounterRepositoryImpl();
     }
+
 
 }

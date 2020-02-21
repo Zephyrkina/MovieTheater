@@ -1,6 +1,7 @@
 package ua.com.spring.core.training.domain;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     private User user;

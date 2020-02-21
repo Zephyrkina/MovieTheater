@@ -1,6 +1,7 @@
 package ua.com.spring.core.training.domain;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.util.NavigableSet;
@@ -12,7 +13,7 @@ import java.util.TreeSet;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class User extends DomainObject {
 
     private String firstName;

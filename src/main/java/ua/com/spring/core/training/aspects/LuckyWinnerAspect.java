@@ -1,7 +1,6 @@
 package ua.com.spring.core.training.aspects;
 
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,7 +23,6 @@ public class LuckyWinnerAspect {
         Double resultPrice = (Double) proceedingJoinPoint.proceed();
 
         if (user != null) {
-
             boolean isLuckyUser = checkLucky();
             if (isLuckyUser) {
                 resultPrice = 0.0;
